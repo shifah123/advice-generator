@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advice Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #1e1e1e;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .advice-box {
+        background-color: #2c2c2c;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #advice-number,
+      #advice-text {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+
+      #advice-number.fade-out,
+      #advice-text.fade-out {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      #advice-number.fade-in,
+      #advice-text.fade-in {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      #advice-button {
+        background-color: #00ff7f;
+        color: #1e1e1e;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      #advice-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="advice-number">ADVICE #<span></span></h1>
+      <div class="advice-box">
+        <p id="advice-text"></p>
+        <button id="advice-button">
+          <i class="fas fa-dice"></i>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const adviceNumberSpan = document.querySelector("#advice-number span");
+      const adviceText = document.getElementById("advice-text");
+      const adviceButton = document.getElementById("advice-button");
+
+      const advices = [
+        "It is easy to sit up and take notice, what's difficult is getting up and taking action.",
+        "The only way to do great work is to love what you do.",
+        "Believe you can and you're halfway there.",
+        "Happiness is not something ready-made. It comes from your own actions.",
+        "The best way to predict the future is to create it.",
+        "The only limit to our realization of tomorrow will be our doubts of today.",
+        "Successful people do what unsuccessful people are not willing to do.",
+        "The future belongs to those who believe in the beauty of their dreams.",
+        "Happiness is a choice, not a result. Nothing will make you happy until you choose to be happy.",
+        "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.",
+      ];
+
+      function getRandomAdviceNumber() {
+        return Math.floor(Math.random() * 900) + 100;
+      }
+
+      function getRandomAdvice() {
+        return advices[Math.floor(Math.random() * advices.length)];
+      }
+
+      function displayAdvice() {
+        const randomNumber = getRandomAdviceNumber();
+        adviceNumberSpan.textContent = randomNumber;
+        adviceText.textContent = getRandomAdvice();
+
+        adviceNumberSpan.classList.add("fade-in");
+        adviceText.classList.add("fade-in");
+        setTimeout(() => {
+          adviceNumberSpan.classList.remove("fade-in");
+          adviceText.classList.remove("fade-in");
+        }, 500);
+      }
+
+      adviceButton.addEventListener("click", () => {
+        adviceNumberSpan.classList.add("fade-out");
+        adviceText.classList.add("fade-out");
+        setTimeout(() => {
+          displayAdvice();
+          adviceNumberSpan.classList.remove("fade-out");
+          adviceText.classList.remove("fade-out");
+        }, 500);
+      });
+
+      displayAdvice(); // Display the first advice when the page loads
+    </script>
+  </body>
+</html>
